@@ -1,0 +1,410 @@
+html {
+  background: url(/img/bg-sm.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+  background-color: rgba(192, 174, 136, 0);
+  font: 300 14px "Helvetica Neue", Helvetica, Arial;
+}
+
+h3 small {
+  color: #ffffff;
+}
+
+a {
+  cursor: pointer;
+  cursor: hand;
+}
+.panel {
+  opacity: 0.7;
+}
+
+.panel:hover {
+  -webkit-box-shadow: 2px 10px 8px rgba(107, 107, 107, 0.30);
+  -moz-box-shadow: 2px 10px 8px  rgba(107, 107, 107, 0.30);
+  box-shadow: 2px 10px 8px rgba(107, 107, 107, 0.30);
+  opacity: 0.95;
+}
+
+.f-left {
+  float: left;
+  min-height: 10px;
+}
+
+.f-right {
+  float: right;
+  min-height: 10px;
+}
+
+.center {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.actionsButtons {
+  margin: 10px 2px 10px 0px;
+  float: right;
+}
+
+.white {
+  color: #ffffff;
+}
+
+a.white {
+  color: #ffffff;
+}
+
+.glow {
+  /*
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  white-space: pre;
+  */
+  padding: 10px;
+  border: none;
+  font-size: 2em;
+  color: rgba(255, 255, 255, 1);
+  text-decoration: normal;
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  text-shadow: 0 0 10px rgba(170, 170, 170, 0.82), 0 0 20px rgba(183, 183, 183, 0.50), 0 0 30px rgba(158, 158, 158, 0.50);
+}
+
+.glow:hover {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.16), 0 0 20px rgba(107, 104, 109, 0.89), 0 0 30px rgba(255, 255, 255, 0.5), 0 0 40px #fffceb, 0 0 70px #fffceb, 0 0 80px #fffceb, 0 0 100px #fffceb;
+  text-decoration: none;
+}
+
+
+
+.large {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.left {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 260px;
+}
+
+.right {
+  position: absolute;
+  top: 330px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 200px;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.tagsinput {
+  height: auto;
+}
+
+.tag a {
+  color: white;
+  text-decoration: none;
+}
+
+#edit .CodeMirror {
+
+  height: 100%;
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.75);
+  -webkit-transform: translateZ(0); /* Workaround for OSX antialias issue */
+
+}
+
+#edit .CodeMirror-scroll {
+
+  height: 100%;
+
+}
+
+#edit .CodeMirror div.CodeMirror-selected {
+
+  background: rgba(0, 0, 0, 0.1);
+
+}
+
+#edit .CodeMirror-focused div.CodeMirror-selected {
+
+  background: rgba(0, 0, 255, 0.1);
+
+}
+
+#edit .CodeMirror .errorLine {
+
+  background: rgba(255, 0, 0, 0.25);
+
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #editor {
+  height: 100%;
+}
+
+/* mysterious pre */
+body > pre {
+  display: none
+}
+
+/* codemirror */
+.CodeMirror {
+  font-size: 12px;
+}
+
+.header .title {
+  margin: 9px 0 0 9px;
+  float: left;
+  font-size: 2em;
+}
+
+.header .tagline {
+  margin: 9px 0 0 9px;
+  float: left;
+  font-size: 1.2em;
+}
+
+.npm {
+  background: url(../img/npm.png);
+  background-size: 38px 15px;
+  width: 38px;
+  height: 15px;
+  display: inline-block;
+  position: relative;
+  top: 4px;
+}
+
+.browserify {
+  background: url(../img/browserify.png);
+  background-size: 75px 22.5px;
+  width: 75px;
+  height: 22.5px;
+  display: inline-block;
+  position: relative;
+  top: 7px;
+}
+
+.view-icon {
+  background: url(../img/view.png);
+  width: 28px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+  top: 5px;
+}
+
+#editor .CodeMirror .errorLine {
+  background: rgba(255, 0, 0, 0.25);
+}
+
+#shareTextarea {
+  font-size: 12px;
+}
+
+#shareInstructions p {
+  margin: 5px 0;
+}
+
+#howto, #share, .packagejson {
+  padding: 20px;
+  position: absolute;
+  right: 0;
+  background: white;
+  width: 40%;
+  overflow: auto;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.packagejson {
+  clear: both;
+}
+
+.packagejson .tagsinput .tag:hover {
+  padding: 6px 13px 6px 19px;
+}
+
+.packagejson h6 {
+  margin-top: 0;
+}
+
+#howto ul {
+  list-style-type: none;
+}
+
+#howto p {
+  margin-bottom: 10px
+}
+
+.logo {
+  padding: 0px 6px 0 1px;
+  margin-top: 5px;
+  float: left;
+  background-size: 40px 200px;
+  width: 200px;
+}
+
+.attribution {
+  margin: 20px 0 0 0;
+  float: left;
+  font-size: 12px;
+}
+
+#controls {
+  width: 50%;
+  top: 0;
+  right: 0;
+  left: initial;
+}
+
+#container {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#crosshair {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -2px 0 0 -2px;
+  width: 4px;
+  height: 4px;
+  background-color: #d00;
+  opacity: 0.5;
+}
+
+#stats {
+  bottom: 0px;
+  right: 0px;
+}
+
+.errorMessage {
+  text-align: center;
+  width: 200px;
+  margin: 20px auto;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg) translate(-9px) rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg) translate(-9px) rotate(-360deg);
+  }
+}
+
+.spinning {
+  -webkit-animation: rotate infinite linear;
+  -webkit-animation-duration: .5s;
+  -webkit-animation-delay: .1s;
+}
+
+.alert {
+  z-index: 100;
+  white-space: pre;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+}
+
+
+/* spinkit */
+
+.spinner {
+  margin: 10px 0 10px 0;
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color: #333;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+
+  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+  animation: stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes stretchdelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(0.4)
+  }
+  20% {
+    -webkit-transform: scaleY(1.0)
+  }
+}
+
+@keyframes stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}
+
+@media only screen and (max-width: 1150px) {
+  .tagline {
+    display: none;
+  }
+}
