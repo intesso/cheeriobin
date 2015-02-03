@@ -1,9 +1,13 @@
-html {
-  background: url(/img/bg-sm.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+/*html {*/
+/*background: url(/img/bg-dia.png) no-repeat center center fixed;*/
+/*-webkit-background-size: cover;*/
+/*-moz-background-size: cover;*/
+/*-o-background-size: cover;*/
+/*background-size: cover;*/
+/*}*/
+
+body.custom-background {
+  background: url(/img/bg-grid.png) repeat scroll top left;
 }
 
 body {
@@ -19,13 +23,14 @@ a {
   cursor: pointer;
   cursor: hand;
 }
+
 .panel {
   opacity: 0.7;
 }
 
 .panel:hover {
   -webkit-box-shadow: 2px 10px 8px rgba(107, 107, 107, 0.30);
-  -moz-box-shadow: 2px 10px 8px  rgba(107, 107, 107, 0.30);
+  -moz-box-shadow: 2px 10px 8px rgba(107, 107, 107, 0.30);
   box-shadow: 2px 10px 8px rgba(107, 107, 107, 0.30);
   opacity: 0.95;
 }
@@ -46,9 +51,31 @@ a {
   text-align: center;
 }
 
-.actionsButtons {
+.buttons {
   margin: 10px 2px 10px 0px;
   float: right;
+}
+
+.tooltip.top .tooltip-inner {
+  opacity: 0.9;
+  background-color: #aea79f;
+}
+
+.tooltip.top .tooltip-arrow {
+  opacity: 0.9;
+  border-top-color: #aea79f;
+}
+
+.headline {
+  color: rgba(77, 77, 77, 0.89);
+}
+
+.bla {
+  color: #aea79f;
+}
+
+a.bla {
+  color: #aea79f;
 }
 
 .white {
@@ -66,11 +93,13 @@ a.white {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   white-space: pre;
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 0 0 10px rgba(170, 170, 170, 0.82), 0 0 20px rgba(183, 183, 183, 0.50), 0 0 30px rgba(158, 158, 158, 0.50);
   */
   padding: 10px;
   border: none;
   font-size: 2em;
-  color: rgba(255, 255, 255, 1);
+
   text-decoration: normal;
   text-align: center;
   -o-text-overflow: clip;
@@ -79,15 +108,13 @@ a.white {
   -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
   -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
   transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-  text-shadow: 0 0 10px rgba(170, 170, 170, 0.82), 0 0 20px rgba(183, 183, 183, 0.50), 0 0 30px rgba(158, 158, 158, 0.50);
+
 }
 
 .glow:hover {
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.16), 0 0 20px rgba(107, 104, 109, 0.89), 0 0 30px rgba(255, 255, 255, 0.5), 0 0 40px #fffceb, 0 0 70px #fffceb, 0 0 80px #fffceb, 0 0 100px #fffceb;
+  text-shadow: 0 0 10px rgba(250, 243, 255, 0.84), 0 0 20px rgba(217, 213, 219, 0.77), 0 0 30px rgba(218, 218, 218, 0.84), 0 0 40px #fffceb, 0 0 70px #fffceb, 0 0 80px #fffceb, 0 0 100px #fffceb;
   text-decoration: none;
 }
-
-
 
 .large {
   position: absolute;
@@ -341,7 +368,6 @@ body > pre {
   left: 20px;
   right: 20px;
 }
-
 
 /* spinkit */
 

@@ -21,14 +21,14 @@
 
 </head>
 
-<body>
+<body class="custom-background">
 <div class="container">
     <section class="header">
         <div class="row clearfix">
             <div class="col-md-12 column">
-                <h3 class="text-center glow">
+                <h3 class="text-center headline glow">
                     CheerioBin
-                    <small class="hidden-xs"> run Cheerio and jQuery commands.</small>
+                    <small class="hidden-xs headline"> run Cheerio and jQuery commands.</small>
                 </h3>
 
             </div>
@@ -49,14 +49,19 @@
                 </div>
             </div>
 
-            <div class="col-md-4 .col-md-offset-4 column f-left center white">
+            <div class="col-md-4 .col-md-offset-4 column f-left center bla">
                 <span class="cacheState hidden">Code has been edited since last run</span>
             </div>
 
             <div class="col-md-4 column f-right">
-                <div class="actionsButtons">
+                <div class="buttons">
+                    <button id="js-howto" type="button" class="btn btn-default play-button" data-toggle="tooltip"
+                            data-placement="top" title="cmd+H or ctrl+h" data-action="howto"><i
+                        class="glyphicon glyphicon-hand-up"></i> HowTo
+                    </button>
+
                     <button id="js-run" type="button" class="btn btn-default play-button" data-toggle="tooltip"
-                            data-placement="top" title="COMMAND+ENTER or CTRL+ENTER" data-action="play"><i
+                            data-placement="top" title="cmd+ENTER or ctrl+ENTER" data-action="play"><i
                             class="glyphicon glyphicon-play"></i> Run
                     </button>
                 </div>
@@ -165,9 +170,9 @@ debug(name, 'end');
 
     <section class="footer">
         <div class="row clearfix">
-            <div class="col-md-12 column white">
+            <div class="col-md-12 column bla">
                 <p>
-                    provided by <strong><a href="//www.intesso.com" class="white glow">intesso</a></strong>
+                    provided by <strong><a href="//www.intesso.com" class="bla glow">intesso</a></strong>
                 </p>
             </div>
         </div>
