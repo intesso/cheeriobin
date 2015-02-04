@@ -5,7 +5,7 @@ comparing the cheerio and jquery results can be tedious.
 with requirebin you can now run Cheerio and jQuery commands simultaneously.
 
 
-# how to
+# how to use it
  1. enter your html code you want to evaluate in the html template editor
  2. enter your javascript into the editor. hint: use `$` for jQuery and Cheerio commands.
  3. run the code
