@@ -3,6 +3,7 @@ var ejs = require('ejs');
 var debug = require('debug')('cheeriobin');
 var keydown = require('keydown');
 var Sandbox = require('browser-module-sandbox');
+var marked = require('marked');
 
 var config = require('./config');
 var text2string = require('text-to-string');
@@ -10,12 +11,16 @@ var cheerioPreludeTmpl = fs.readFileSync('./tmpl/cheerio-prelude.js', 'utf-8');
 var cheerioPostlude = fs.readFileSync('./tmpl/cheerio-postlude.js', 'utf-8');
 var jqueryPreludeTmpl = fs.readFileSync('./tmpl/jquery-prelude.js', 'utf-8');
 var jqueryPostlude = fs.readFileSync('./tmpl/jquery-postlude.js', 'utf-8');
+var howtoMarkdown = fs.readFileSync('./howto.md', 'utf-8');
+
+var messageSave = "<strong>Uee</strong>  your code is now saved in the local storage of your browser, yay.";
+var messageStart = "<strong>Don't worry</strong> the evaluation of your code has just started.";
+var messageAlert = "<strong>Uups</strong> something went wrong, I'm terribly sorry :-|";
 
 function noop(e) {
   if (e && typeof e.preventDefault == 'function') e.preventDefault();
   return false;
-};
-
+}
 /**
  * CheerioBin Constructor
  * @param opts
@@ -25,11 +30,25 @@ function noop(e) {
 function CheerioBin(opts) {
   if (!(this instanceof CheerioBin)) return new CheerioBin(opts);
 
+  this.counter = 0;
+  this.parseMarkdown();
   this.initHtmlEditor();
   this.initJsEditor();
   this.getCode();
   this.attachListeners();
+
+  // TODO remove
+  cheeriobin = this;
+
 }
+
+CheerioBin.prototype.parseMarkdown = function () {
+  var selector = '.js-howto-html';
+  var howtoHtml = marked(howtoMarkdown);
+  $el = $(selector);
+  $el.empty();
+  $el.prepend(howtoHtml);
+};
 
 
 CheerioBin.prototype.initHtmlEditor = function () {
@@ -54,6 +73,7 @@ CheerioBin.prototype.attachListeners = function () {
 
   $('#js-run').on('click', function (e) {
     e.preventDefault();
+    self.resetSpinner();
     self.updateOutputs();
     return false;
   });
@@ -68,8 +88,8 @@ CheerioBin.prototype.attachListeners = function () {
   });
 
   // save shortcut
-  keydown(['<meta>', 'S']).on('pressed', self.saveCode.bind(self));
-  keydown(['<control>', 'S']).on('pressed', self.saveCode.bind(self));
+  keydown(['<meta>', 'S']).on('pressed', self.saveCodeKeydown.bind(self));
+  keydown(['<control>', 'S']).on('pressed', self.saveCodeKeydown.bind(self));
 
   // run shortcut
   keydown(['<meta>', '<enter>']).on('pressed', self.updateOutputs.bind(self));
@@ -88,10 +108,13 @@ CheerioBin.prototype.getCode = function () {
   if (storage) {
     this.editorHtml.setValue(storage.html);
     this.editorJs.setValue(storage.js);
-  } else {
-
   }
-}
+};
+
+CheerioBin.prototype.saveCodeKeydown = function () {
+  this.message('.js-message-start', messageSave, 2500);
+  this.saveCode();
+};
 
 CheerioBin.prototype.saveCode = function () {
   debug('save');
@@ -137,9 +160,71 @@ CheerioBin.prototype.createIFrameSandbox = function (container, name, code) {
     cacheOpts: {inMemory: true}
   };
 
-  var sandbox = Sandbox(opts);
-  sandbox.bundle(code);
+  try {
+    var sandbox = Sandbox(opts);
+    sandbox.bundle(code);
+  } catch (err) {
+    var title = '<h1>Sandbox could not be created</h1> please check your code<br/><br/>';
+    debug(title, err);
+    this.alert(title + '<pre>' + err + '</pre>');
+  }
+  this.attachSandboxListeners(sandbox);
 
 };
+
+CheerioBin.prototype.attachSandboxListeners = function (sandbox) {
+  var self = this;
+  var loadingClass = document.querySelector('.spinner').classList;
+  if (typeof self.counter == 'undefined') self.counter = 0;
+  sandbox.on('bundleStart', function () {
+    self.counter++;
+    debug('bundleStart');
+    loadingClass.remove('hidden');
+  });
+
+  sandbox.on('bundleEnd', function (bundle) {
+    debug('bundleEnd');
+    if (--self.counter > 0) return;
+    setTimeout(function () {
+      loadingClass.add('hidden');
+    }, 500);
+  });
+
+  sandbox.on('bundleError', function (err) {
+    self.counter = 0;
+    loadingClass.add('hidden');
+    var title = '<h1>Bundling error</h1> please check the stuff you `require` or the cdn: ' + config.BROWSERIFYCDN + '<br/><br/>';
+    debug(title, err);
+    self.alert(title + '<pre>' + err + '</pre>');
+  })
+};
+
+CheerioBin.prototype.resetSpinner = function () {
+  this.counter = 0;
+  var loadingClass = document.querySelector('.spinner').classList;
+  loadingClass.add('hidden');
+};
+
+CheerioBin.prototype.message = function (selector, message, delay) {
+  var $el = $(selector);
+  $el.html(message);
+  $el.fadeIn();
+
+  window.setTimeout(function () {
+    $el.fadeOut();
+  }, delay);
+};
+
+CheerioBin.prototype.alert = function (message) {
+  alert('.js-alerts', '.js-alert-template', '.js-alert-message', message);
+};
+
+function alert(containerSelector, templateSelector, messageSelector, message) {
+  $container = $(containerSelector);
+  $template = $(templateSelector).html();
+  $container.html($template);
+  $(messageSelector).html(message);
+  $container.alert();
+}
 
 module.exports = CheerioBin();

@@ -1,113 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>CheerioBin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<title>CheerioBin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
 
-    <link rel='shortcut icon' href="img/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" type="text/css" href="css/codemirror.css"/>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel='shortcut icon' href="img/favicon.ico" type="image/x-icon"/>
+	<link rel="stylesheet" type="text/css" href="css/codemirror.css"/>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 
 
-    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="codemirror/addon/hint/show-hint.css">
-    <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
+	<link rel="stylesheet" href="codemirror/lib/codemirror.css">
+	<link rel="stylesheet" href="codemirror/addon/hint/show-hint.css">
+	<link rel="stylesheet" href="codemirror/addon/lint/lint.css">
 
 
 </head>
 
 <body class="custom-background">
+
+
 <div class="container">
-    <section class="header">
-        <div class="row clearfix">
-            <div class="col-md-12 column">
-                <h3 class="text-center headline glow">
-                    CheerioBin
-                    <small class="hidden-xs headline"> run Cheerio and jQuery commands.</small>
-                </h3>
 
-            </div>
-        </div>
-    </section>
+	<section class="notifications">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
 
-    <section class="main">
+				<!-- alert template because bootstrap likes to remove it from the DOM ;-( -->
+				<script class="js-alert-template" type="text/template">
+					<div class="alert alert-danger alert-dismissible fade in" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<div class="js-alert-message">
+							<strong>Uups</strong> something went wrong, I'm terribly sorry
+						</div>
+					</div>
+				</script>
 
-        <div class="row clearfix">
+				<div class="js-alerts alerts">
+					<!-- alert -->
+				</div>
 
-            <div class="col-md-4 column f-left hidden">
-                <div class="spinner">
-                    <div class="rect1"></div>
-                    <div class="rect2"></div>
-                    <div class="rect3"></div>
-                    <div class="rect4"></div>
-                    <div class="rect5"></div>
-                </div>
-            </div>
+				<div class="messages">
 
-            <div class="col-md-4 .col-md-offset-4 column f-left center bla">
-                <span class="cacheState hidden">Code has been edited since last run</span>
-            </div>
+					<!-- message -->
+					<div class="alert alert-warning text-center js-message-start" style="display: none;">
+						<strong>Don't worry</strong> I'm working for you . . . :-)
+					</div>
 
-            <div class="col-md-4 column f-right">
-                <div class="buttons">
-                    <button id="js-howto" type="button" class="btn btn-default play-button" data-toggle="tooltip"
-                            data-placement="top" title="cmd+H or ctrl+h" data-action="howto"><i
-                        class="glyphicon glyphicon-hand-up"></i> HowTo
-                    </button>
+				</div>
 
-                    <button id="js-run" type="button" class="btn btn-default play-button" data-toggle="tooltip"
-                            data-placement="top" title="cmd+ENTER or ctrl+ENTER" data-action="play"><i
-                            class="glyphicon glyphicon-play"></i> Run
-                    </button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="row clearfix">
-            <div class="col-md-12 column">
+			</div>
+		</div>
+	</section>
 
 
-                <div class="panel panel-default">
-                    <div class="panel-heading pointer" title="click to show/hide" data-toggle="tooltip"
-                         data-placement="top">
-                        <div data-toggle="collapse" data-target="#html">
-                            <h3 class="panel-title">
-                                <i class="glyphicon glyphicon-menu-hamburger"></i>
-                                html template
-                            </h3>
-                        </div>
-                    </div>
-                    <div id="html" class="panel-body collapse in">
+	<section class="header">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<h3 class="text-center headline glow">
+					CheerioBin
+					<small class="hidden-xs headline"> run Cheerio and jQuery commands.</small>
+				</h3>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="main">
+
+		<div class="row clearfix">
+
+			<div class="col-md-4 column f-left">
+				<div class="spinner hidden">
+					<div class="rect1"></div>
+					<div class="rect2"></div>
+					<div class="rect3"></div>
+					<div class="rect4"></div>
+					<div class="rect5"></div>
+				</div>
+			</div>
+
+			<div class="col-md-4 .col-md-offset-4 column f-left center bla">
+				<span class="cacheState hidden">Code has been edited since last run</span>
+			</div>
+
+			<div class="col-md-4 column f-right">
+				<div class="buttons">
+					<button id="js-howto" type="button" class="btn btn-default"
+					        data-toggle="modal" data-target="#howto" data-action="howto"><i
+							class="glyphicon glyphicon-hand-up"></i> HowTo
+					</button>
+
+					<button id="js-run" type="button" class="btn btn-primary" data-toggle="tooltip"
+					        data-placement="top" title="cmd+ENTER or ctrl+ENTER" data-action="play"><i
+							class="glyphicon glyphicon-play"></i> Run
+					</button>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+
+
+				<div class="panel panel-default">
+					<div class="panel-heading pointer" title="click to show/hide" data-toggle="tooltip"
+					     data-placement="top">
+						<div data-toggle="collapse" data-target="#html">
+							<h3 class="panel-title">
+								<i class="glyphicon glyphicon-menu-hamburger"></i>
+								html template
+							</h3>
+						</div>
+					</div>
+					<div id="html" class="panel-body collapse in">
 <textarea id="js-code-html" class="hidden">
 <!-- html template -->
 <ul id="fruits">
-    <li class="apple">Apple</li>
-    <li class="orange">Orange</li>
-    <li class="pear">Pear</li>
+	<li class="apple">Apple</li>
+	<li class="orange">Orange</li>
+	<li class="pear">Pear</li>
 </ul>
 </textarea>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading pointer" title="click to show/hide" data-toggle="tooltip"
-                         data-placement="top">
-                        <div data-toggle="collapse" data-target="#edit">
-                            <h3 class="panel-title">
-                                <i class="glyphicon glyphicon-menu-hamburger"></i>
-                                Cheerio and jQuery JavaScript
-                            </h3>
-                        </div>
-                    </div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading pointer" title="click to show/hide" data-toggle="tooltip"
+					     data-placement="top">
+						<div data-toggle="collapse" data-target="#edit">
+							<h3 class="panel-title">
+								<i class="glyphicon glyphicon-menu-hamburger"></i>
+								Cheerio and jQuery JavaScript
+							</h3>
+						</div>
+					</div>
 
-                    <div id="edit" class="panel-body collapse in">
-                        <!-- JavaScript Code -->
+					<div id="edit" class="panel-body collapse in">
+						<!-- JavaScript Code -->
 
 <textarea id="js-code-js" class="hidden">
 // require debug and enable output via localStorage
@@ -130,60 +166,78 @@ debug(name, 'end');
 
 </textarea>
 
-                    </div>
+					</div>
 
-                </div>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-md-6 column">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Cheerio Output
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="js-cheerio" class="embed-responsive embed-responsive-4by3">
-                            <!-- insert iFrame via code -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 column">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            jQuery Output
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="js-jquery" class="embed-responsive embed-responsive-4by3">
-                            <!-- insert iFrame via code -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+				</div>
+			</div>
+		</div>
+		<div class="row clearfix">
+			<div class="col-md-6 column">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Cheerio Output
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div id="js-cheerio" class="embed-responsive embed-responsive-4by3">
+							<!-- insert iFrame via code -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 column">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							jQuery Output
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div id="js-jquery" class="embed-responsive embed-responsive-4by3">
+							<!-- insert iFrame via code -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    </section>
+	</section>
 
-    <section class="footer">
-        <div class="row clearfix">
-            <div class="col-md-12 column bla">
-                <p>
-                    provided by <strong><a href="//www.intesso.com" class="bla glow">intesso</a></strong>
-                </p>
-            </div>
-        </div>
-    </section>
+	<section class="footer">
+		<div class="row clearfix">
+			<div class="col-md-12 column bla">
+				<p>
+					provided by <strong><a href="//www.intesso.com" class="bla glow">intesso</a></strong>
+				</p>
+			</div>
+		</div>
+	</section>
+
+
+	<div id="howto" class="modal fade">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">How is <strong>CheerioBin</strong> useful?</h4>
+				</div>
+				<div class="modal-body nested-markdown js-howto-html">
+					<p>TODO</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
 
 </div>
-
-<script id="template" type="text/template">
-    // require() some stuff from npm (like you were using browserify)
-    // and then hit Rebuild to run it on the right
-</script>
 
 <script type="text/javascript" src="js/jquery-2.1.3.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
