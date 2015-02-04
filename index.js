@@ -71,15 +71,13 @@ CheerioBin.prototype.initJsEditor = function () {
 CheerioBin.prototype.attachListeners = function () {
   var self = this;
 
+  this.isTouchDevice =  (true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch));
+
   $('#js-run').on('click', function (e) {
     e.preventDefault();
     self.resetSpinner();
     self.updateOutputs();
     return false;
-  });
-
-  $('[data-toggle="tooltip"]').tooltip().click(function (e) {
-    $(this).tooltip('toggle');
   });
 
   // handle keyboard shortcuts
@@ -96,6 +94,12 @@ CheerioBin.prototype.attachListeners = function () {
   // run shortcut
   keydown(['<meta>', '<enter>']).on('pressed', self.updateOutputs.bind(self));
   keydown(['<control>', '<enter>']).on('pressed', self.updateOutputs.bind(self));
+
+  // stuff that should not run on touch devices
+  if (this.isTouchDevice) return;
+  $('[data-toggle="tooltip"]').tooltip().click(function (e) {
+    $(this).tooltip('toggle');
+  });
 
 };
 
