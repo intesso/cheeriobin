@@ -51,7 +51,7 @@ el.innerHTML = result;
 
 # credits / inspiration
 
-> [Standing On The Shoulder Of Giants](http://en.wikipedia.org/wiki/Standing_on_the_shoulders_of_giants)
+> [Standing On The Shoulders Of Giants](http://en.wikipedia.org/wiki/Standing_on_the_shoulders_of_giants)
 
  - http://api.jquery.com/
  - https://github.com/cheeriojs/cheerio/blob/master/Readme.md
