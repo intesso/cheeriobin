@@ -174,35 +174,47 @@ CheerioBin.prototype.createIFrameSandbox = function (container, name, code) {
 
 CheerioBin.prototype.attachSandboxListeners = function (sandbox) {
   var self = this;
-  var loadingClass = document.querySelector('.spinner').classList;
   if (typeof self.counter == 'undefined') self.counter = 0;
   sandbox.on('bundleStart', function () {
     self.counter++;
     debug('bundleStart');
-    loadingClass.remove('hidden');
+    self.setRunning();
   });
 
   sandbox.on('bundleEnd', function (bundle) {
     debug('bundleEnd');
     if (--self.counter > 0) return;
     setTimeout(function () {
-      loadingClass.add('hidden');
+      self.setDone();
     }, 500);
   });
 
   sandbox.on('bundleError', function (err) {
     self.counter = 0;
-    loadingClass.add('hidden');
+    self.setDone();
+
     var title = '<h1>Bundling error</h1> please check the stuff you `require` or the cdn: ' + config.BROWSERIFYCDN + '<br/><br/>';
     debug(title, err);
     self.alert(title + '<pre>' + err + '</pre>');
+
   })
+};
+
+CheerioBin.prototype.setRunning = function () {
+  var loadingClass = document.querySelector('.spinner').classList;
+  loadingClass.remove('hidden');
+  $('#js-run').prop('disabled', true);
+};
+
+CheerioBin.prototype.setDone = function () {
+  var loadingClass = document.querySelector('.spinner').classList;
+  loadingClass.add('hidden');
+  $('#js-run').prop('disabled', false);
 };
 
 CheerioBin.prototype.resetSpinner = function () {
   this.counter = 0;
-  var loadingClass = document.querySelector('.spinner').classList;
-  loadingClass.add('hidden');
+  this.setDone();
 };
 
 CheerioBin.prototype.message = function (selector, message, delay) {
