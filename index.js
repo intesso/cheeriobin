@@ -78,7 +78,9 @@ CheerioBin.prototype.attachListeners = function () {
     return false;
   });
 
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip().click(function (e) {
+    $(this).tooltip('toggle');
+  });
 
   // handle keyboard shortcuts
   keydown({
