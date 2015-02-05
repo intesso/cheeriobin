@@ -6,6 +6,11 @@
 /*background-size: cover;*/
 /*}*/
 
+html, body {
+  height: 100%;
+  overflow: auto
+}
+
 body.custom-background {
   background: url(/img/bg-grid.png) repeat scroll top left;
 }
@@ -35,6 +40,40 @@ a {
   opacity: 0.95;
 }
 
+
+.fullscreen.fullscreen {
+  position: fixed;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+  z-index: 9;
+}
+
+.fullscreen-close {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+i.fullscreen-close {
+  font-size: 1.6em;
+  color: #dd4814;
+  cursor: hand;
+}
+
+.enable-fullscreen {
+  background-color: #fff;
+}
+
+iframe {
+  background-color: #fff;
+  padding: 10px;
+}
+
 .f-left {
   float: left;
   min-height: 10px;
@@ -43,6 +82,14 @@ a {
 .f-right {
   float: right;
   min-height: 10px;
+}
+
+.space-left {
+  margin-left: 10px;
+}
+
+.space-right {
+  margin-right: 10px;
 }
 
 .center {
@@ -80,6 +127,18 @@ a {
 .tooltip.top .tooltip-arrow {
   opacity: 0.9;
   border-top-color: #aea79f;
+}
+
+.header .title {
+  margin: 9px 0 0 9px;
+  float: left;
+  font-size: 2em;
+}
+
+.header .tagline {
+  margin: 9px 0 0 9px;
+  float: left;
+  font-size: 1.2em;
 }
 
 .headline {
@@ -177,17 +236,6 @@ body > pre {
   font-size: 12px;
 }
 
-.header .title {
-  margin: 9px 0 0 9px;
-  float: left;
-  font-size: 2em;
-}
-
-.header .tagline {
-  margin: 9px 0 0 9px;
-  float: left;
-  font-size: 1.2em;
-}
 
 @-webkit-keyframes rotate {
   from {

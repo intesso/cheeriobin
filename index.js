@@ -36,6 +36,7 @@ function CheerioBin(opts) {
   this.initJsEditor();
   this.getCode();
   this.attachListeners();
+  this.setSaved();
 
   // TODO remove
   cheeriobin = this;
@@ -45,34 +46,53 @@ function CheerioBin(opts) {
 CheerioBin.prototype.parseMarkdown = function () {
   var selector = '.js-howto-html';
   var howtoHtml = marked(howtoMarkdown);
-  $el = $(selector);
+  var $el = $(selector);
   $el.empty();
   $el.prepend(howtoHtml);
 };
 
 
 CheerioBin.prototype.initHtmlEditor = function () {
+  var self = this;
   editorHtml = this.editorHtml = CodeMirror.fromTextArea($('#js-code-html').get(0), {
     lineNumbers: true,
     mode: 'text/html',
-    extraKeys: {'Ctrl-Space': 'autocomplete'}
+    extraKeys: {
+      "Ctrl-Space": "autocomplete"
+    }
   });
+  editorHtml.on('change', self.setChanged.bind(self));
 };
 
 CheerioBin.prototype.initJsEditor = function () {
+  var self = this;
   editorJs = this.editorJs = CodeMirror.fromTextArea($('#js-code-js').get(0), {
     lineNumbers: true,
-    extraKeys: {"Ctrl-Space": "autocomplete"},
-    mode: {name: "javascript", globalVars: true},
+    extraKeys: {
+      "Ctrl-Space": "autocomplete",
+      "F11": function (cm) {
+        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+      }
+      ,
+      "Esc": function (cm) {
+        if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+      }
+    },
+    mode: {
+      name: "javascript", globalVars: true
+    },
     gutters: ['CodeMirror-lint-markers'],
     lint: true
-  });
-};
+  })
+  ;
+  editorJs.on('change', self.setChanged.bind(self));
+}
+;
 
 CheerioBin.prototype.attachListeners = function () {
   var self = this;
 
-  this.isTouchDevice =  (true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch));
+  this.isTouchDevice = (true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch));
 
   $('#js-run').on('click', function (e) {
     e.preventDefault();
@@ -96,12 +116,45 @@ CheerioBin.prototype.attachListeners = function () {
   keydown(['<meta>', '<enter>']).on('pressed', self.updateOutputs.bind(self));
   keydown(['<control>', '<enter>']).on('pressed', self.updateOutputs.bind(self));
 
+
+  // fullscreen texteditor triggers
+  $('[data-toggle="fullscreen"]').on('click', function (e) {
+    var target = $(this).attr('data-target');
+    debug('fullscreen on', target);
+    self.enterFullScreen(target);
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  });
+
+  $('body').on('click', '.fullscreen-close', function (e) {
+    console.log('fullscreen off');
+    self.leaveFullScreen();
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  });
+
   // stuff that should not run on touch devices
   if (this.isTouchDevice) return;
   $('[data-toggle="tooltip"]').tooltip().click(function (e) {
     $(this).tooltip('toggle');
   });
 
+};
+
+CheerioBin.prototype.enterFullScreen = function (selector) {
+  // selector of the textarea: the next div is the div inserted from CodeMirror
+  $(selector).toggleClass('fullscreen', 1000);
+  $('.panel').css('opacity', 1);
+  $(selector).parent().append('<i class="glyphicon glyphicon-remove fullscreen-close"></i>');
+};
+
+CheerioBin.prototype.leaveFullScreen = function () {
+  // selector of the textarea: the next div is the div inserted from CodeMirror
+  $('.fullscreen').toggleClass('fullscreen', 1000);
+  $('.panel').removeAttr('style');
+  $('.fullscreen-close').remove();
 };
 
 CheerioBin.prototype.updateOutputs = function () {
@@ -124,11 +177,11 @@ CheerioBin.prototype.saveCodeKeydown = function () {
 };
 
 CheerioBin.prototype.saveCode = function () {
-  debug('save');
   var userCode = {};
   userCode.html = this.editorHtml.getValue();
   userCode.js = this.editorJs.getValue();
   localStorage.setItem('CheerioBinUserCode', JSON.stringify(userCode));
+  this.setSaved();
   debug('userCode', userCode);
   return userCode;
 };
@@ -207,6 +260,24 @@ CheerioBin.prototype.attachSandboxListeners = function (sandbox) {
   })
 };
 
+CheerioBin.prototype.setChanged = function () {
+  // unicode star: '\u2B51'
+  if (!(document.title.charAt(0) == '⭑')) {
+    document.title = "⭑" + document.title;
+  }
+  var changedClass = document.querySelector('.js-changed').classList;
+  changedClass.remove('hidden');
+};
+
+CheerioBin.prototype.setSaved = function () {
+  // unicode star: '\u2B51'
+  if ((document.title.charAt(0) == '⭑')) {
+    document.title = document.title.replace('⭑', '');
+  }
+  var changedClass = document.querySelector('.js-changed').classList;
+  changedClass.add('hidden');
+};
+
 CheerioBin.prototype.setRunning = function () {
   var loadingClass = document.querySelector('.spinner').classList;
   loadingClass.remove('hidden');
@@ -239,8 +310,8 @@ CheerioBin.prototype.alert = function (message) {
 };
 
 function alert(containerSelector, templateSelector, messageSelector, message) {
-  $container = $(containerSelector);
-  $template = $(templateSelector).html();
+  var $container = $(containerSelector);
+  var $template = $(templateSelector).html();
   $container.html($template);
   $(messageSelector).html(message);
   $container.alert();
