@@ -2,7 +2,7 @@
 
 [cheerio](//github.com/cheeriojs/cheerio) is a great server side module to run most of [jQuery's](http://api.jquery.com/) core functions on the node.js server.
 comparing the cheerio and jquery results can be tedious.
-with requirebin you can now run Cheerio and jQuery commands simultaneously.
+with CheerioBin you can now run Cheerio and jQuery commands simultaneously.
 
 
 # how to use it
@@ -13,7 +13,7 @@ with requirebin you can now run Cheerio and jQuery commands simultaneously.
 ### tips
  - you can require anything that can be browserified.
  - since cheerio is not attached to the [DOM](//developer.mozilla.org/en-US/docs/Web/API), you have to run `.html()` and insert into the dom or the console.
- - the html editor has autocomplete function when you press ctrl+space.
+ - the editors have an autocomplete function when you press ctrl+space.
  - the js editor (helps) you to write nice javascript with semicolon etc. :-|
 
 
