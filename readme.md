@@ -4,7 +4,11 @@ run Cheerio and jQuery commands simultaneously.
 
 # usage
 
-see [howto](howto.md)
+see: [howto](howto.md)
+
+# demo
+
+check it out at: http://www.cheeriobin.intesso.com/
 
 
 # credits / inspiration

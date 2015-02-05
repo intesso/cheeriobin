@@ -51,7 +51,7 @@ el.innerHTML = result;
 
 # credits / inspiration
 
-> [Standing On The Shoulders Of Giants](http://en.wikipedia.org/wiki/Standing_on_the_shoulders_of_giants)
+> [Developing Software is like Standing On The Shoulders Of Giants](http://en.wikipedia.org/wiki/Standing_on_the_shoulders_of_giants)
 
  - http://api.jquery.com/
  - https://github.com/cheeriojs/cheerio/blob/master/Readme.md
@@ -66,4 +66,9 @@ el.innerHTML = result;
 
 MIT
 
-provided by [intesso](//intesso.com)
+# fork me on github
+
+https://github.com/intesso/cheeriobin
+
+
+> provided by [intesso](//intesso.com)
