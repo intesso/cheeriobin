@@ -62,7 +62,8 @@ CheerioBin.prototype.initHtmlEditor = function () {
 CheerioBin.prototype.initJsEditor = function () {
   editorJs = this.editorJs = CodeMirror.fromTextArea($('#js-code-js').get(0), {
     lineNumbers: true,
-    mode: 'javascript',
+    extraKeys: {"Ctrl-Space": "autocomplete"},
+    mode: {name: "javascript", globalVars: true},
     gutters: ['CodeMirror-lint-markers'],
     lint: true
   });
