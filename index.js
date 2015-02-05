@@ -117,19 +117,11 @@ CheerioBin.prototype.attachListeners = function () {
   keydown(['<control>', '<enter>']).on('pressed', self.updateOutputs.bind(self));
 
 
-  // fullscreen texteditor triggers
+  // fullscreen texteditor trigger
   $('[data-toggle="fullscreen"]').on('click', function (e) {
     var target = $(this).attr('data-target');
     debug('fullscreen on', target);
     self.enterFullScreen(target);
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
-  });
-
-  $('body').on('click', '.fullscreen-close', function (e) {
-    console.log('fullscreen off');
-    self.leaveFullScreen();
     e.preventDefault();
     e.stopPropagation();
     return false;
@@ -144,15 +136,25 @@ CheerioBin.prototype.attachListeners = function () {
 };
 
 CheerioBin.prototype.enterFullScreen = function (selector) {
+  var self = this;
   // selector of the textarea: the next div is the div inserted from CodeMirror
-  $(selector).toggleClass('fullscreen', 1000);
+  $(selector).addClass('fullscreen');
   $('.panel').css('opacity', 1);
   $(selector).parent().append('<i class="glyphicon glyphicon-remove fullscreen-close"></i>');
+
+  // attach close event
+  $('.fullscreen-close').on('click', function (e) {
+    debug('fullscreen off');
+    self.leaveFullScreen();
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  });
 };
 
 CheerioBin.prototype.leaveFullScreen = function () {
   // selector of the textarea: the next div is the div inserted from CodeMirror
-  $('.fullscreen').toggleClass('fullscreen', 1000);
+  $('.fullscreen').removeClass('fullscreen');
   $('.panel').removeAttr('style');
   $('.fullscreen-close').remove();
 };

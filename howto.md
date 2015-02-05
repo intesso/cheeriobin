@@ -1,6 +1,6 @@
 # motivation
 
-[cheerio](//github.com/cheeriojs/cheerio) is a great server side module to run most of [jQuery's](http://api.jquery.com/) core functions on the node.js server.
+[Cheerio](//github.com/cheeriojs/cheerio) is a great server side module to run most of [jQuery's](http://api.jquery.com/) core functions on the node.js server.
 comparing the cheerio and jquery results can be tedious.
 with CheerioBin you can now run Cheerio and jQuery commands simultaneously.
 
