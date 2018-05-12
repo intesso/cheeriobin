@@ -17,6 +17,7 @@
     "browser-module-sandbox": "intesso/browser-module-sandbox",
     "debug": "^2.1.1",
     "ejs": "^2.2.4",
+    "http-server": "^0.11.1",
     "iframe": "^0.3.1",
     "keydown": "intesso/keydown",
     "marked": "^0.3.3",
